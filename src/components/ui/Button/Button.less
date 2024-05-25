@@ -1,0 +1,99 @@
+.BASE_Button.ant-btn {
+    border-radius: 10px;
+    padding: 0 15px;
+    margin-bottom: 10px;
+    height: 45px;
+    background-color: transparent;
+    color: #ff7f50; /* Coral */
+    border: 1.5px solid #ffa07a; /* Light Salmon */
+    font-size: 14px;
+    font-weight: 700;
+
+    &:hover {
+        background-color: transparent;
+        color: #ff7f50; /* Coral */
+        border: 1.5px solid #ff8c00; /* Dark Orange */
+    }
+
+    &.disabled {
+        box-shadow: none !important;
+        border-color: transparent !important;
+        color: #f5deb3; /* Wheat */
+        opacity: 0.5;
+
+        &:hover {
+            box-shadow: none !important;
+            border-color: transparent !important;
+            color: #f5deb3; /* Wheat */
+        }
+    }
+}
+
+.BASE_Primary_button.ant-btn-primary {
+    border: 0;
+    color: #ffffff; /* White */
+    background: linear-gradient(90deg, #ff4500, #ff6347); /* Gradient from Orange Red to Tomato */
+    background-size: 200% 100%;
+
+    .anticon {
+        margin: 0;
+    }
+
+    &:hover, &:focus {
+        border: 0;
+        color: #ffffff; /* White */
+        background: linear-gradient(90deg, #ff4500, #ff6347); /* Gradient from Orange Red to Tomato */
+        background-size: 200% 100%;
+        background-position: 100%;
+    }
+
+    &:active {
+        background: #ff4500; /* Orange Red */
+        background-position: 100%;
+    }
+
+    &.disabled {
+        background: #ffa07a !important; /* Light Salmon */
+    }
+}
+
+.BASE_Secondary_button.ant-btn {
+    border: 0;
+    color: #ff8c00; /* Dark Orange */
+    background-color: #ffe4b5; /* Moccasin */
+
+    &:hover, &:focus {
+        border: 0;
+        color: #ff8c00; /* Dark Orange */
+        background-color: #ffd700; /* Gold */
+    }
+
+    &.disabled {
+        background-color: #ffe4b5 !important; /* Moccasin */
+    }
+}
+
+.BASE_Link_button.ant-btn {
+    border: 0;
+    font-weight: normal;
+
+    &:hover, &:focus {
+        border: 0;
+    }
+}
+
+.BASE_Danger_button.ant-btn {
+    border: 0;
+    color: #ffffff; /* White */
+    background-color: #ff4500; /* Orange Red */
+
+    &:hover, &:focus {
+        border: 0;
+        color: #ffffff; /* White */
+        background-color: #dc143c; /* Crimson */
+    }
+
+    &.disabled {
+        background-color: #ff4500 !important; /* Orange Red */
+    }
+}
