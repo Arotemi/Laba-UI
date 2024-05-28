@@ -7,6 +7,8 @@ import './ContactsPage.less';
 import CreateContactModal from '../../ui/Modals/CreateContactModal/CreateContactModal';
 import ShareModal from '../../ui/Modals/ShareContactModal/ShareContactModal';
 import { useUser } from '../../../hooks';
+import { useNavigate } from "react-router-dom";
+import {ROUTES} from "../../../constants";
 
 const { Column } = Table;
 
@@ -19,7 +21,8 @@ function ContactsPage() {
     const [ isCreateModalOpen, setIsCreateModalOpen ] = useState(false);
     const [ contact, setContact ] = useState({});
     const [ queryParams, setQueryParams ] = useState({ search: '', sortBy: 'createdAt', orderBy: 'DESC' });
-    // const [ ws, setWs ] = useState(new WebSocket('ws://localhost:8082'));
+    const navigate    = useNavigate();
+    const [ ws, setWs ] = useState(new WebSocket('ws://localhost:8082'));
 
     const user = useUser() || {};
 
@@ -38,14 +41,14 @@ function ContactsPage() {
         setContacts(newArr);
     }
 
-    // ws.onmessage = function (event) {
-    //     handleSocketUpdate(JSON.parse(event.data));
-    // };
+    ws.onmessage = function (event) {
+        handleSocketUpdate(JSON.parse(event.data));
+    };
 
     useEffect(() => {
-        // ws.onopen = (e) => {
-        //     ws.send(JSON.stringify({ type: 'save-connection', userId: user.id }));
-        // };
+        ws.onopen = (e) => {
+            ws.send(JSON.stringify({ type: 'save-connection', userId: user.id }));
+        };
 
         fetchData();
     }, [ queryParams.search, queryParams.sortBy, queryParams.orderBy ]);
@@ -87,14 +90,24 @@ function ContactsPage() {
     return (
         <div className="contact-container">
             <div className='createDiv'>
-                <span className='infoText'>Managing contacts</span>
-                <Button
-                    className='createBtn'
-                    type='primary'
-                    onClick={() => setIsCreateModalOpen(true)}
-                >
-                    Create
-                </Button>
+                <span className='infoText'>Contact users List</span>
+                <div className='buttonGroup'>
+                    <Button
+                        className='createBtn'
+                        type='primary'
+                        onClick={() => setIsCreateModalOpen(true)}
+                    >
+                        Create
+                    </Button>
+                    <Button
+                        type='primary'
+                        htmlType='submit'
+                        className='submit-button shared-button'
+                        onClick={() => navigate(ROUTES.SHARED_CONTACTS)}
+                    >
+                        Shared Users
+                    </Button>
+                </div>
             </div>
 
             {/*<div className='filters'>*/}
@@ -109,7 +122,7 @@ function ContactsPage() {
             {/*</div>*/}
 
             <div className="contact-table">
-                <Table
+            <Table
                     rowKey={'id'}
                     dataSource={contacts}
                     pagination={false}
@@ -152,9 +165,9 @@ function ContactsPage() {
                                     <Button type="link" size="small" className="edit-button" onClick={() => { setContact(record); setIsOpen(true); }}>
                                         Edit
                                     </Button>
-                                    {/*<Button type="link" size="small" className="share-button" onClick={() => { handeShare(record.id); }}>*/}
-                                    {/*    Share*/}
-                                    {/*</Button>*/}
+                                    <Button type="link" size="small" className="share-button" onClick={() => { handeShare(record.id); }}>
+                                        Share
+                                    </Button>
                                 </div>
                                 <div className="delete-button">
                                     <Button type="link" size="small" className="delete-button" onClick={() => { handeDelete(record.id); }}>
@@ -178,6 +191,7 @@ function ContactsPage() {
                 onClose={() => setIsCreateModalOpen(false)}
                 onOk={handeCreate}
             />
+
             <ShareModal
                 isOpen={isOpenShared}
                 contactData={contact}

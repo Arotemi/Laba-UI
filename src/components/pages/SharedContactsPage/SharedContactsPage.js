@@ -6,6 +6,9 @@ import Button from '../../ui/Button';
 import './ContactsPage.less';
 import CreateContactModal from '../../ui/Modals/CreateContactModal/CreateContactModal';
 import { useUser } from '../../../hooks';
+import {ROUTES} from "../../../constants";
+// eslint-disable-next-line import/order
+import {useNavigate} from "react-router-dom";
 
 const { Column } = Table;
 
@@ -16,9 +19,10 @@ function SharedContactsPage() {
     const [ isCreateModalOpen, setIsCreateModalOpen ] = useState(false);
     const [ contact, setContact ] = useState({});
     const [ queryParams, setQueryParams ] = useState({ search: '', sortBy: 'createdAt', orderBy: 'DESC' });
+    const navigate    = useNavigate();
     const user = useUser() || { };
 
-    // const [ ws, setWs ] = useState(new WebSocket('ws://localhost:8082'));
+    const [ ws, setWs ] = useState(new WebSocket('ws://localhost:8082'));
 
     async function fetchData() {
         const contactsData = await api.contacts.listShared(queryParams);
@@ -27,16 +31,16 @@ function SharedContactsPage() {
     }
 
     useEffect(() => {
-        // ws.onopen = (e) => {
-        //     ws.send(JSON.stringify({ type: 'save-connection', userId: user.id }));
-        // };
+        ws.onopen = (e) => {
+            ws.send(JSON.stringify({ type: 'save-connection', userId: user.id }));
+        };
 
         fetchData();
     }, [ queryParams.search, queryParams.sortBy, queryParams.orderBy ]);
 
     async function handeUpdate(data) {
         await api.contacts.update(data.id, data);
-        // ws.send(JSON.stringify({ type: 'update', userId: user.id, data, id: data.id }));
+        ws.send(JSON.stringify({ type: 'update', userId: user.id, data, id: data.id }));
         setIsOpen(false);
         fetchData();
     }
@@ -60,57 +64,92 @@ function SharedContactsPage() {
     }
 
     return (
-        <div>
-            <div className='filters'>
-                <div>
-                    <Input
-                        value={queryParams.search}
-                        onChange={(e) => {
-                            setQueryParams((prev) => ({ ...prev, search: e.target.value }));
-                        }}
-                        placeholder={'search'}
-                    />
+        <div className="contact-container">
+            <div className='createDiv'>
+                <span className='infoText'>Shared users List</span>
+                <div className='buttonGroup'>
+                    {/*<Button*/}
+                    {/*    className='createBtn'*/}
+                    {/*    type='primary'*/}
+                    {/*    onClick={() => setIsCreateModalOpen(true)}*/}
+                    {/*>*/}
+                    {/*    Create*/}
+                    {/*</Button>*/}
+                    <Button
+                        type='primary'
+                        htmlType='submit'
+                        className='submit-button shared-button'
+                        onClick={() => navigate(ROUTES.HOME)}
+                    >
+                        Back to Users
+                    </Button>
                 </div>
             </div>
 
-            <Table
-                dataSource={contacts} pagination={false} onChange={handleTableOnChange}
-                scroll={{ x: true }}>
-                <Column
-                    title='First Name' dataIndex='firstName' key='firstName'
-                    sorter />
-                <Column
-                    title='Last Name' dataIndex='lastName' key='lastName'
-                    sorter />
-                <Column title='Phone' dataIndex='phone' key='phone' />
-                <Column title='createdAt' dataIndex='createdAt' key='createdAt' />
-                <Column
-                    title='Action'
-                    key='action'
-                    render={(_, record) => (
-                        <Space size='middle'>
-                            <a
-                                onClick={() => {
-                                    setContact(record);
-                                    setIsOpen(true);
-                                }}
-                            >
-                                Edit
-                            </a>
-                            <a
-                                onClick={() => {
-                                    handeDelete(record.id);
-                                }}
-                            >
-                                Delete
-                            </a>
-                        </Space>
-                    )}
-                />
-            </Table>
+            <div className="contact-table">
+                <Table
+                    rowKey={'id'}
+                    dataSource={contacts}
+                    pagination={false}
+                    onChange={handleTableOnChange}
+                    scroll={{x: true}}
+                    className="custom-table"
+                >
+                    <Column
+                        title='First Name'
+                        dataIndex='firstName'
+                        key='firstName'
+                        sorter
+                        onHeaderCell={() => ({className: 'sortable-header'})}
+                    />
+                    <Column
+                        title='Last Name'
+                        dataIndex='lastName'
+                        key='lastName'
+                        sorter
+
+                    />
+                    <Column
+                        title='Phone'
+                        dataIndex='phone'
+                        key='phone'
+                        className="notsortable-column"
+                    />
+                    {/*<Column*/}
+                    {/*    title='Created At'*/}
+                    {/*    dataIndex='createdAt'*/}
+                    {/*    key='createdAt'*/}
+                    {/*    className="notsortable-column"*/}
+                    {/*/>*/}
+                    <Column
+                        title='Action'
+                        key='action'
+                        render={(_, record) => (
+                            <Space size='middle' className="action-buttons">
+                                <div className="edit-share-buttons">
+                                    <Button type="link" size="small" className="edit-button" onClick={() => {
+                                        setContact(record);
+                                        setIsOpen(true);
+                                    }}>
+                                        Edit
+                                    </Button>
+
+                                </div>
+                                <div className="delete-button">
+                                    <Button type="link" size="small" className="delete-button" onClick={() => {
+                                        handeDelete(record.id);
+                                    }}>
+                                        Delete
+                                    </Button>
+                                </div>
+                            </Space>
+                        )}
+                    />
+                </Table>
+            </div>
             <ProductModal
                 isOpen={isOpen} contactData={contact} onClose={() => setIsOpen(false)}
-                onOk={handeUpdate} />
+                onOk={handeUpdate}/>
             <CreateContactModal
                 isOpen={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}

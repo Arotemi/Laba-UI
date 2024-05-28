@@ -9,13 +9,13 @@ class Profile extends Base {
     };
 
     listUsers = async () => {
-        const data = await handleRequest(this.apiClient.get('users'));
+        const data = await handleRequest(this.apiClient.get('customers'));
 
         return data;
     };
 
     listOnlineUsers = async () => {
-        const data = await handleRequest(this.apiClient.get('users/online'));
+        const data = await handleRequest(this.apiClient.get('customers/online'));
 
         return data;
     };

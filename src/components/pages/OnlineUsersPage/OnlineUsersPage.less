@@ -428,10 +428,13 @@
 
 .createDiv {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  width: 100%;
+  padding: 10px;
 
   .createBtn {
-    height: 30px;
+    height: 45px;
   } 
 }
 
@@ -480,4 +483,140 @@
   .filters .ant-input {
       min-width: 300px; /* Adjust minimum width for larger screens such as iPads */
   }
+}
+
+
+
+.contact-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.createDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.infoText {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.createBtn {
+  height: 30px;
+}
+
+.filters .filter-input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.contact-table {
+  margin-top: 20px;
+}
+
+.custom-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table .ant-table-thead > tr > th {
+  background-color: #d17d1f;
+  color: white;
+  font-weight: bold;
+  position: relative;
+  cursor: pointer;
+}
+
+.custom-table .ant-table-thead > tr > th:hover {
+  background-color: rgba(177, 150, 128, 0.76);
+  color: black;
+}
+
+.custom-table .ant-table-column-sort {
+  display: flex;
+  align-items: center;
+}
+
+.custom-table .ant-table-column-sorters {
+  margin-left: 5px;
+}
+
+.custom-table .ant-table-column-sorter-up.active::after,
+.custom-table .ant-table-column-sorter-down.active::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: 4px solid transparent;
+}
+
+.custom-table .ant-table-column-sorter-up.active::after {
+  border-bottom-color: #1890ff;
+  top: 4px;
+}
+
+.custom-table .ant-table-column-sorter-down.active::after {
+  border-top-color: #1890ff;
+  bottom: 4px;
+}
+
+.custom-table .ant-table-tbody > tr:hover > td {
+  background-color: #e6f7ff;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+}
+
+.ant-table-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+.ant-table-pagination {
+  margin-top: 20px;
+}
+.action-buttons .ant-btn {
+  padding: 5px;
+  height: 30px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-share-buttons {
+  display: flex;
+}
+
+.edit-share-buttons .ant-btn {
+  margin-right: 8px;
+}
+
+.edit-share-buttons .ant-btn, .delete-button .ant-btn {
+  background-color: #d17d1f;
+  color: #fff;
+  margin-right: 8px;
+}
+
+.delete-button .ant-btn {
+  background-color: #f5222d;
+  color: #fff;
+}
+
+.ant-table-thead {
+  background-color: #aa1b1b;
+}
+
+.sortable-column {
+  background-color: #e8821f;
 }

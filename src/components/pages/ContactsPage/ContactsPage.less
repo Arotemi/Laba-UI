@@ -491,14 +491,17 @@
 
 .createDiv {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
 }
 
 .infoText {
   font-size: 24px;
   font-weight: bold;
+  flex: 1;
+  text-align: left;
 }
 
 .createBtn {
@@ -517,6 +520,9 @@
 .custom-table {
   border-collapse: separate;
   border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .custom-table .ant-table-thead > tr > th {
@@ -613,4 +619,29 @@
 
 .sortable-column {
   background-color: #e8821f;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.createBtn, .submit-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 4px;
+}
+
+.shared-button {
+  background: linear-gradient(90deg, #1e90ff, #00bfff, #87cefa) !important;
+}
+
+.createBtn {
+  background: #555; /* Adjust as needed for the create button */
+}
+
+.createBtn:hover, .submit-button:hover {
+  opacity: 0.8;
 }
