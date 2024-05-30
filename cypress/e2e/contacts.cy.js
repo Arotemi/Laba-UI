@@ -49,7 +49,7 @@ describe('Contact users List', () => {
 
     });
 
-    it('allows creating a new contact', () => {
+    it('creating a new contact', () => {
         cy.get('button.createBtn').click();
         cy.get('.ProductModal').should('be.visible');
 

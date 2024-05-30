@@ -110,16 +110,7 @@ function ContactsPage() {
                 </div>
             </div>
 
-            {/*<div className='filters'>*/}
-            {/*    <Input*/}
-            {/*        className='filter-input'*/}
-            {/*        placeholder={'Search'}*/}
-            {/*        allowClear*/}
-            {/*        onChange={(e) => {*/}
-            {/*            // Handle search logic here*/}
-            {/*        }}*/}
-            {/*    />*/}
-            {/*</div>*/}
+
 
             <div className="contact-table">
             <Table
