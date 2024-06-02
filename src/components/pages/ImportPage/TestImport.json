@@ -1,0 +1,11 @@
+{
+curl --location 'http://localhost:8080/apiv1/users/newsletter' \
+
+--header 'Content-Type: application/json' \
+
+--data-raw {
+"emails": ["artemtest3@gmail.com"],
+  "name": "scenarioImport",
+  "last name" : "Bob",
+  "phone": "+27368768235"
+}

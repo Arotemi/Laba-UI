@@ -7,5 +7,7 @@ export const ROUTES = {
     LOGIN           : '/login',
     REGISTRATION    : '/registration',
     HOME            : '/users',
-    SHARED_CONTACTS : '/users/shared'
+    SHARED_CONTACTS : '/users/shared',
+    JOBS            : '/jobs',
+    IMPORT_USERS    : '/import'
 };
